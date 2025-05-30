@@ -1,0 +1,17 @@
+lzc-sdk-version: "0.1"
+name: Peersuite
+package: cloud.lazycat.app.peersuite
+version: 0.0.3
+description: open source, decentralized, private alternative to apps like Discord or Slack
+homepage: https://github.com/openconstruct/Peersuite
+author: openconstruct
+application:
+  subdomain: peersuite
+  background_task: true
+  public_path:
+    - /
+  routes:
+    - /=http://peersuite:80/
+services:
+  peersuite:
+    image: registry.lazycat.cloud/czyt/openconstruct/peersuite:984bc136bcd0bc4e
