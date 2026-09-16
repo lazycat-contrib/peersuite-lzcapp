@@ -1,0 +1,12 @@
+application:
+  subdomain: peersuite
+  background_task: true
+  public_path:
+    - /
+  upstreams:
+    - location: /
+      backend: http://peersuite:80/
+services:
+  peersuite:
+    # upstream: ghcr.io/openconstruct/peersuite:02f527d
+    image: ghcr.1ms.run/openconstruct/peersuite:02f527d@sha256:42ffa8a745c0064dae9e6918de14e8c81c94b5928734539dbe58a285e5dd0708

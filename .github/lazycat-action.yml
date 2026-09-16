@@ -1,0 +1,39 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: .lazycat-build/peersuite.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: peersuite
+    bump: patch
+build:
+  run_buildscript: false
+images:
+  # 主应用：上游 ghcr 无 SemVer，有 7 位 hex sha 家族（不可变，最新 02f527d 与 latest 同 digest）→ custom/created + digest-pin + patch 自增
+  - id: peersuite
+    target: service
+    service: peersuite
+    source: ghcr.io/openconstruct/peersuite
+    channel: custom
+    sort: created
+    tag_regex: '^[0-9a-f]{7}$'
+    delivery:
+      mode: mirror
+      require_digest_match: true
+stores:
+  official:
+    # Official store publication is intentionally disabled; publish only to Miaomiao Store.
+    enabled: false
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Peersuite
+    summary: "开源、去中心化、私有的 Discord/Slack 替代品"
